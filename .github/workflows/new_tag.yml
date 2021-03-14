@@ -10,11 +10,11 @@ on:
 jobs:
   create_tag:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: "Checkout repo"
         uses: actions/checkout@master
+        with:
+          token: ${{ secrets.TOKEN }}
       - name: "New tag"
         run: |
           git tag v${{ github.event.inputs.tag }}
