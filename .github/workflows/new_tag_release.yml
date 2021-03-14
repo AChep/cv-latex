@@ -18,6 +18,8 @@ jobs:
         with:
           root_file: cv.tex
           args: -lualatex --file-line-error --interaction=nonstopmode
+      - id: vars
+        run: echo ::set-output name=tag::${GITHUB_REF:10}
       - name: "Create release"
         id: create_release
         uses: actions/create-release@v1
