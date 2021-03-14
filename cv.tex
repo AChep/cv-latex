@@ -8,6 +8,42 @@
 \usepackage{fancyhdr}
 \usepackage{multicol}
 \usepackage{xcolor}
+
+\usepackage{datenumber}
+\usepackage{calc}
+
+\newcounter{datetoday}
+\newcounter{diffyears}
+\newcounter{diffmonths}
+\newcounter{diffdays}
+
+% based on the 
+% https://tex.stackexchange.com/a/14519/204629
+\newcommand{\difftoday}[3]{%
+      \setmydatenumber{datetoday}{\the\year}{\the\month}{\the\day}%
+      \setmydatenumber{diffdays}{#1}{#2}{#3}%
+      \addtocounter{diffdays}{-\thedatetoday}%
+      \ifnum\value{diffdays}>0
+        \def\diffbefore{in }%
+      \else
+        \def\diffbefore{}%
+        \setcounter{diffdays}{-\value{diffdays}}%
+      \fi
+      \setcounter{diffyears}{\value{diffdays}/365}%
+      \setcounter{diffdays}{\value{diffdays}-365*\value{diffyears}}%
+      \setcounter{diffmonths}{\value{diffdays}/30}%
+      \setcounter{diffdays}{\value{diffdays}-30*\value{diffmonths}}%
+      %
+      \diffbefore
+      \ifnum\value{diffyears}=0
+      \else
+        \ifnum\value{diffyears}>1
+            \thediffyears\space years,
+        \else
+            \thediffyears\space year,
+        \fi
+      \fi
+}
  
 \pagestyle{fancy}
 \fancyhf{}
@@ -29,16 +65,16 @@
 
 	\section*{Personal Statement}
 	A versatile and professional software developer with a commitment to and experience of developing innovative and complex software solutions. 
-	More than six years of experience in developing apps.
+	More than \difftoday{2011}{08}{19} of experience in developing software.
 
 	\section*{Skills}
 	\subsection*{General}
 	\begin{multicols}{2}
 	\begin{itemize}
 		\item \textbf{Programming} with Kotlin, Java, Dart, Python, JavaScript, etc.
-		\item \textbf{Native Android apps} with Kotlin, Java, \textbf{multiplatform apps} with Kotlin, JavaScript, Dart, Java \textbf{crossplatform apps} with Flutter.
+		\item \textbf{Native Android apps} with Kotlin, Java, \textbf{multiplatform apps} with Kotlin \textbf{crossplatform apps} with Dart \& Flutter, JavaScript.
 		\item \textbf{Building} with Gradle, Maven, Webpack, \textbf{CI/CD} with GitHub actions, TeamCity, Fastlane.
-		\item \textbf{Designing apps} with Object-Oriented and Functional programming principles, Hexagonal and Clean architecture, MVP, MVVM, MVC, MVI patterns.
+		\item \textbf{Designing apps} with Object-Oriented and Functional programming principles, Hexagonal and Clean architecture, MVP, MVVM, MVI patterns and more.
 		\item \textbf{Databases} with SQL, NoSQL.
 		\item \textbf{Web Servers} with ktor, NodeJS.
 		\item \textbf{Version control} with Git.
