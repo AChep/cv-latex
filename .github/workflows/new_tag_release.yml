@@ -1,0 +1,35 @@
+name: "🤖 New tag -> release"
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  internal_release:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: "Checkout repo"
+        uses: actions/checkout@master
+      - name: "Compile LaTeX document"
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: cv.tex
+          args: -lualatex --file-line-error --interaction=nonstopmode
+      - name: "Create release"
+        id: create_release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: "Upload .aar"
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: cv.pdf
+          asset_name: cv-${{ steps.vars.outputs.tag }}.pdf
+          asset_content_type: application/zip

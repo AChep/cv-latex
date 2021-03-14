@@ -1,0 +1,21 @@
+name: "Create a tag"
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag name'
+        required: true
+
+jobs:
+  create_tag:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: "Checkout repo"
+        uses: actions/checkout@master
+      - name: "New tag"
+        run: |
+          git tag v${{ github.event.inputs.tag }}
+          git push --tags
