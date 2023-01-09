@@ -22,6 +22,6 @@ jobs:
         root_file: cv.tex
         args: -lualatex --file-line-error --interaction=nonstopmode
     - name: Upload LaTeX build
-      uses: actions/upload-artifact@v2-preview
+      uses: actions/upload-artifact@v3.1.2
       with:
         path: cv.pdf
