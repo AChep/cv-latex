@@ -17,11 +17,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Compile LaTeX document
-      uses: xu-cheng/latex-action@master
+      uses: xu-cheng/latex-action@v3
       with:
         root_file: cv.tex
         args: -lualatex --file-line-error --interaction=nonstopmode
     - name: Upload LaTeX build
       uses: actions/upload-artifact@v3.1.2
+      if: always()
       with:
-        path: cv.pdf
+        path: cv.*
