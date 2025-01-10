@@ -23,7 +23,7 @@ jobs:
         root_file: cv.tex
         args: -lualatex --file-line-error --interaction=nonstopmode
     - name: Upload LaTeX build
-      uses: actions/upload-artifact@v4.3.1
+      uses: actions/upload-artifact@v4.6.0
       if: always()
       with:
         path: cv.*
